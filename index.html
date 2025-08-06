@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Character Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .controls {
+            width: 350px;
+            background: #f8f9fa;
+            padding: 30px;
+            border-right: 1px solid #eee;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .canvas-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+        }
+
+        .character-canvas {
+            position: relative;
+            width: 300px;
+            height: 533px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .character-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .character-layer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        .control-group h3 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 1.2rem;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #4ECDC4;
+        }
+
+        .gender-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .gender-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .gender-btn.active {
+            background: #4ECDC4;
+            border-color: #4ECDC4;
+            color: white;
+        }
+
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .item-btn {
+            aspect-ratio: 1;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .item-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-btn.active {
+            border-color: #FF6B6B;
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #4ECDC4;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            border-top-color: #4ECDC4;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .outfit-mode {
+            margin-bottom: 20px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn.active {
+            background: #764ba2;
+            border-color: #764ba2;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .controls {
+                width: 100%;
+                max-height: none;
+            }
+            
+            .character-canvas {
+                width: 250px;
+                height: 444px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Indian Character Designer</h1>
+            <p>Create beautiful Indian-style avatars with traditional clothing and accessories</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="controls">
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    Loading assets...
+                </div>
+                
+                <div class="control-group">
+                    <h3>Character</h3>
+                    <div class="gender-selector">
+                        <button class="gender-btn active" data-gender="girl">Girl</button>
+                        <button class="gender-btn" data-gender="boy">Boy</button>
+                    </div>
+                </div>
+
+                <div class="outfit-mode">
+                    <h3>Outfit Mode</h3>
+                    <div class="mode-selector">
+                        <button class="mode-btn active" data-mode="individual">Individual</button>
+                        <button class="mode-btn" data-mode="complete">Complete</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Background</h3>
+                    <div class="item-grid" id="background-grid"></div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Skin Tone</h3>
+                    <div class="item-grid" id="skin-grid"></div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Back Hair</h3>
+                    <div class="item-grid" id="backhair-grid"></div>
+                </div>
+
+                <div class="individual-controls">
+                    <div class="control-group">
+                        <h3>Top</h3>
+                        <div class="item-grid" id="top-grid"></div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Bottom</h3>
+                        <div class="item-grid" id="bottom-grid"></div>
+                    </div>
+
+                    <div class="control-group">
+                        <h3>Shoes</h3>
+                        <div class="item-grid" id="shoes-grid"></div>
+                    </div>
+                </div>
+
+                <div class="complete-controls" style="display: none;">
+                    <div class="control-group">
+                        <h3>Complete Outfit</h3>
+                        <div class="item-grid" id="full-grid"></div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Accessories</h3>
+                    <div class="item-grid" id="thing1-grid"></div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Eyes</h3>
+                    <div class="item-grid" id="eyeball-grid"></div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Eyebrows</h3>
+                    <div class="item-grid" id="eyebrow-grid"></div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Mouth</h3>
+                    <div class="item-grid" id="mouth-grid"></div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Front Hair</h3>
+                    <div class="item-grid" id="fronthair-grid"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="randomizeCharacter()">Random</button>
+                    <button class="btn btn-secondary" onclick="saveCharacter()">Save PNG</button>
+                </div>
+            </div>
+            
+            <div class="canvas-area">
+                <div class="character-canvas" id="character-canvas">
+                    <!-- Character layers will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let characterData = null;
+        let currentGender = 'girl';
+        let currentMode = 'individual';
+        let selectedAssets = {
+            background: null,
+            skin: null,
+            backhair: null,
+            top: null,
+            bottom: null,
+            shoes: null,
+            full: null,
+            thing1: null,
+            eyeball: null,
+            eyebrow: null,
+            mouth: null,
+            fronthair: null
+        };
+
+        // Load character data
+        async function loadCharacterData() {
+            try {
+                document.getElementById('loading').style.display = 'block';
+                
+                // Try multiple possible URLs for the JSON file
+                const possibleUrls = [
+                    './character-assets.json', // Same directory
+                    'character-assets.json',   // Relative path
+                    'https://raw.githubusercontent.com/XChirxg/db/main/character-assets.json' // GitHub raw (note: capital X)
+                ];
+                
+                let dataLoaded = false;
+                for (const url of possibleUrls) {
+                    try {
+                        console.log('Trying to load from:', url);
+                        const response = await fetch(url);
+                        if (response.ok) {
+                            characterData = await response.json();
+                            console.log('Character data loaded from:', url);
+                            console.log('Data structure:', characterData);
+                            dataLoaded = true;
+                            break;
+                        }
+                    } catch (e) {
+                        console.log('Failed to load from:', url, e.message);
+                        continue;
+                    }
+                }
+                
+                if (!dataLoaded) {
+                    throw new Error('Could not load character data from any source');
+                }
+                
+                initializeInterface();
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading character data:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div style="color: red; text-align: left;">
+                        <h4>Error loading character assets:</h4>
+                        <p>${error.message}</p>
+                        <p><strong>Troubleshooting:</strong></p>
+                        <ul style="text-align: left; margin-left: 20px;">
+                            <li>Make sure "character-assets.json" is in the same folder as index.html</li>
+                            <li>Check that all image folders (boy/, girl/, background/) are uploaded</li>
+                            <li>Verify GitHub Pages is enabled in repository settings</li>
+                            <li>Open browser console (F12) for more details</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize interface
+        function initializeInterface() {
+            setupGenderSelector();
+            setupModeSelector();
+            populateAssetGrids();
+            setDefaultSelections();
+            renderCharacter();
+        }
+
+        // Setup gender selector
+        function setupGenderSelector() {
+            document.querySelectorAll('.gender-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentGender = btn.dataset.gender;
+                    populateAssetGrids();
+                    setDefaultSelections();
+                    renderCharacter();
+                });
+            });
+        }
+
+        // Setup mode selector
+        function setupModeSelector() {
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentMode = btn.dataset.mode;
+                    
+                    // Toggle visibility of controls
+                    const individualControls = document.querySelector('.individual-controls');
+                    const completeControls = document.querySelector('.complete-controls');
+                    
+                    if (currentMode === 'individual') {
+                        individualControls.style.display = 'block';
+                        completeControls.style.display = 'none';
+                        selectedAssets.full = null;
+                    } else {
+                        individualControls.style.display = 'none';
+                        completeControls.style.display = 'block';
+                        selectedAssets.top = null;
+                        selectedAssets.bottom = null;
+                        selectedAssets.shoes = null;
+                    }
+                    
+                    populateAssetGrids();
+                    renderCharacter();
+                });
+            });
+        }
+
+        // Populate asset grids
+        function populateAssetGrids() {
+            if (!characterData) return;
+
+            // Backgrounds
+            populateGrid('background-grid', characterData.backgrounds.items, 'background');
+            
+            // Character-specific assets
+            const character = characterData.characters[currentGender];
+            if (character) {
+                populateGrid('skin-grid', character.skin.items, 'skin');
+                populateGrid('backhair-grid', character.backhair.items, 'backhair');
+                populateGrid('thing1-grid', character.thing1.items, 'thing1');
+                populateGrid('eyeball-grid', character.face.eyeball.items, 'eyeball');
+                populateGrid('eyebrow-grid', character.face.eyebrow.items, 'eyebrow');
+                populateGrid('mouth-grid', character.face.mouth.items, 'mouth');
+                populateGrid('fronthair-grid', character.fronthair.items, 'fronthair');
+
+                if (currentMode === 'individual') {
+                    populateGrid('top-grid', character.top.items, 'top');
+                    populateGrid('bottom-grid', character.bottom.items, 'bottom');
+                    populateGrid('shoes-grid', character.shoes.items, 'shoes');
+                } else {
+                    populateGrid('full-grid', character.full.items, 'full');
+                }
+            }
+        }
+
+        // Populate individual grid
+        function populateGrid(gridId, items, category) {
+            const grid = document.getElementById(gridId);
+            if (!grid || !items) return;
+            
+            grid.innerHTML = '';
+            
+            // Add "None" option for optional items
+            if (['background', 'thing1', 'backhair', 'fronthair'].includes(category)) {
+                const noneBtn = document.createElement('button');
+                noneBtn.className = 'item-btn';
+                noneBtn.textContent = 'None';
+                noneBtn.addEventListener('click', () => {
+                    selectAsset(category, null);
+                });
+                grid.appendChild(noneBtn);
+            }
+            
+            items.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'item-btn';
+                btn.textContent = item.id;
+                btn.title = item.name;
+                btn.addEventListener('click', () => {
+                    selectAsset(category, item);
+                });
+                grid.appendChild(btn);
+            });
+        }
+
+        // Select asset
+        function selectAsset(category, asset) {
+            selectedAssets[category] = asset;
+            
+            // Update UI
+            document.querySelectorAll(`#${category}-grid .item-btn`).forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Find and activate the selected button
+            const gridId = `${category}-grid`;
+            const grid = document.getElementById(gridId);
+            if (grid) {
+                const buttons = grid.querySelectorAll('.item-btn');
+                if (asset === null) {
+                    // Select "None" button
+                    buttons[0]?.classList.add('active');
+                } else {
+                    // Find button with matching ID
+                    buttons.forEach(btn => {
+                        if (btn.textContent == asset.id) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            }
+            
+            renderCharacter();
+        }
+
+        // Set default selections
+        function setDefaultSelections() {
+            if (!characterData) return;
+            
+            const character = characterData.characters[currentGender];
+            if (!character) return;
+            
+            // Set default skin
+            if (character.skin.items.length > 0) {
+                selectAsset('skin', character.skin.items[0]);
+            }
+            
+            // Set default facial features
+            if (character.face.eyeball.items.length > 0) {
+                selectAsset('eyeball', character.face.eyeball.items[0]);
+            }
+            if (character.face.eyebrow.items.length > 0) {
+                selectAsset('eyebrow', character.face.eyebrow.items[0]);
+            }
+            if (character.face.mouth.items.length > 0) {
+                selectAsset('mouth', character.face.mouth.items[0]);
+            }
+        }
+
+        // Render character
+        function renderCharacter() {
+            const canvas = document.getElementById('character-canvas');
+            canvas.innerHTML = '';
+            
+            // Layer order as specified in documentation
+            const layerOrder = [
+                'background',
+                'backhair', 
+                'skin',
+                'bottom',
+                'shoes', 
+                'top',
+                'full',
+                'thing1',
+                'eyeball',
+                'eyebrow',
+                'mouth',
+                'fronthair'
+            ];
+            
+            layerOrder.forEach(layer => {
+                const asset = selectedAssets[layer];
+                if (asset) {
+                    const img = document.createElement('img');
+                    img.src = asset.url;
+                    img.className = 'character-layer';
+                    img.style.zIndex = layerOrder.indexOf(layer);
+                    img.onerror = () => {
+                        console.error(`Failed to load image: ${asset.url}`);
+                    };
+                    canvas.appendChild(img);
+                }
+            });
+        }
+
+        // Randomize character
+        function randomizeCharacter() {
+            if (!characterData) return;
+            
+            const character = characterData.characters[currentGender];
+            if (!character) return;
+            
+            // Random background (optional)
+            if (Math.random() > 0.3) {
+                const backgrounds = characterData.backgrounds.items;
+                selectAsset('background', backgrounds[Math.floor(Math.random() * backgrounds.length)]);
+            } else {
+                selectAsset('background', null);
+            }
+            
+            // Random skin
+            const skins = character.skin.items;
+            selectAsset('skin', skins[Math.floor(Math.random() * skins.length)]);
+            
+            // Random hair
+            if (Math.random() > 0.2) {
+                const backhairs = character.backhair.items;
+                selectAsset('backhair', backhairs[Math.floor(Math.random() * backhairs.length)]);
+            } else {
+                selectAsset('backhair', null);
+            }
+            
+            if (Math.random() > 0.1) {
+                const fronthairs = character.fronthair.items;
+                selectAsset('fronthair', fronthairs[Math.floor(Math.random() * fronthairs.length)]);
+            } else {
+                selectAsset('fronthair', null);
+            }
+            
+            // Random clothing based on mode
+            if (currentMode === 'individual') {
+                const tops = character.top.items;
+                const bottoms = character.bottom.items;
+                const shoes = character.shoes.items;
+                
+                selectAsset('top', tops[Math.floor(Math.random() * tops.length)]);
+                selectAsset('bottom', bottoms[Math.floor(Math.random() * bottoms.length)]);
+                selectAsset('shoes', shoes[Math.floor(Math.random() * shoes.length)]);
+                selectAsset('full', null);
+            } else {
+                const fulls = character.full.items;
+                selectAsset('full', fulls[Math.floor(Math.random() * fulls.length)]);
+                selectAsset('top', null);
+                selectAsset('bottom', null);
+                selectAsset('shoes', null);
+            }
+            
+            // Random accessories (optional)
+            if (Math.random() > 0.6) {
+                const accessories = character.thing1.items;
+                selectAsset('thing1', accessories[Math.floor(Math.random() * accessories.length)]);
+            } else {
+                selectAsset('thing1', null);
+            }
+            
+            // Random facial features
+            const eyeballs = character.face.eyeball.items;
+            const eyebrows = character.face.eyebrow.items;
+            const mouths = character.face.mouth.items;
+            
+            selectAsset('eyeball', eyeballs[Math.floor(Math.random() * eyeballs.length)]);
+            selectAsset('eyebrow', eyebrows[Math.floor(Math.random() * eyebrows.length)]);
+            selectAsset('mouth', mouths[Math.floor(Math.random() * mouths.length)]);
+        }
+
+        // Save character as PNG
+        function saveCharacter() {
+            const canvas = document.getElementById('character-canvas');
+            const canvasEl = document.createElement('canvas');
+            const ctx = canvasEl.getContext('2d');
+            
+            canvasEl.width = 1080;
+            canvasEl.height = 1920;
+            
+            const images = canvas.querySelectorAll('img');
+            let loadedImages = 0;
+            const totalImages = images.length;
+            
+            if (totalImages === 0) {
+                alert('No character to save!');
+                return;
+            }
+            
+            images.forEach(img => {
+                const tempImg = new Image();
+                tempImg.crossOrigin = 'anonymous';
+                tempImg.onload = () => {
+                    ctx.drawImage(tempImg, 0, 0, canvasEl.width, canvasEl.height);
+                    loadedImages++;
+                    
+                    if (loadedImages === totalImages) {
+                        // Download the image
+                        const link = document.createElement('a');
+                        link.download = `character-${Date.now()}.png`;
+                        link.href = canvasEl.toDataURL();
+                        link.click();
+                    }
+                };
+                tempImg.src = img.src;
+            });
+        }
+
+        // Initialize app
+        window.addEventListener('load', loadCharacterData);
+    </script>
+</body>
+</html>

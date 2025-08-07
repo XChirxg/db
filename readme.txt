@@ -116,9 +116,9 @@ https://raw.githubusercontent.com/xchirxg/db/main/{category}/{filename}
 ```
 
 Examples:
-- `https://raw.githubusercontent.com/xchirxg/db/main/girl/top/(15).png`
-- `https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/(3).png`
-- `https://raw.githubusercontent.com/xchirxg/db/main/background/(2).png`
+- `https://raw.githubusercontent.com/xchirxg/db/main/girl/top/15.png`
+- `https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/3.png`
+- `https://raw.githubusercontent.com/xchirxg/db/main/background/2.png`
 
 ## ⚡ Quick Implementation Guide
 
@@ -152,10 +152,11 @@ Examples:
 - **Categories**: 12 different types
 
 ## 🔄 Version Information
-- **Current Version**: 1.0.0
-- **Last Updated**: 2024
+- **Current Version**: 2.0.0
+- **Last Updated**: 2025
 - **Compatibility**: All modern web browsers and mobile applications
 - **File Format Support**: PNG with alpha transparency
+- **Breaking Changes**: Updated file naming from `(1).png` to `1.png` format
 
 ## 💡 Best Practices
 - Always use the recommended layer order for proper visual results
@@ -177,3 +178,46 @@ Examples:
 - **Repository**: db
 - **Access**: Public (no authentication required)
 - **CDN**: GitHub Raw Content Delivery
+
+## 🚀 Integration Examples
+
+### JavaScript/React Example
+```javascript
+// Fetch the assets configuration
+const response = await fetch('https://raw.githubusercontent.com/xchirxg/db/main/character-assets.json');
+const assetsData = await response.json();
+
+// Get a random girl character
+const randomSkin = assetsData.characters.girl.skin.items[Math.floor(Math.random() * assetsData.characters.girl.skin.count)];
+const randomTop = assetsData.characters.girl.top.items[Math.floor(Math.random() * assetsData.characters.girl.top.count)];
+const randomBottom = assetsData.characters.girl.bottom.items[Math.floor(Math.random() * assetsData.characters.girl.bottom.count)];
+
+// Layer the images
+const layers = [
+  assetsData.backgrounds.items[0], // Background
+  randomSkin, // Skin
+  randomTop, // Top
+  randomBottom, // Bottom
+  // Add more layers as needed
+];
+```
+
+### Unity C# Example
+```csharp
+// Download and parse JSON configuration
+string jsonUrl = "https://raw.githubusercontent.com/xchirxg/db/main/character-assets.json";
+string jsonData = UnityWebRequest.Get(jsonUrl).downloadHandler.text;
+AssetsData data = JsonUtility.FromJson<AssetsData>(jsonData);
+
+// Load character assets
+string skinUrl = data.characters.boy.skin.items[0].url;
+StartCoroutine(LoadImage(skinUrl, OnSkinLoaded));
+```
+
+## 📝 Changelog
+
+### Version 2.0.0
+- **Breaking Change**: Updated file naming convention from `(1).png` to `1.png`
+- Improved URL structure for easier programmatic access
+- Enhanced documentation with integration examples
+- Added version tracking and changelog section

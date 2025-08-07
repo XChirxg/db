@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Designer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            height: 100vh;
+            position: relative;
+        }
+        
+        .character-display {
+            flex: 1;
+            position: relative;
+            background: transparent;
+            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .character-canvas {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .character-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .character-layer.loaded {
+            opacity: 1;
+        }
+        
+        .controls {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .control-label {
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .skin-selector {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .skin-button {
+            width: 22px;
+            height: 22px;
+            border: 1.5px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .skin-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .skin-button.active {
+            border-color: #ffeb3b;
+            box-shadow: 0 0 8px #ffeb3b;
+        }
+        
+        .random-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+        
+        .random-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .boy-skin-colors {
+            background: linear-gradient(90deg, #fdbcb4, #f4a688, #e79881, #d08871, #b5674d);
+        }
+        
+        .girl-skin-colors {
+            background: linear-gradient(90deg, #fde2e4, #f7cad0, #faa2c1, #e7789d, #cd5c85, #a2386b);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="character-display">
+            <div class="character-canvas" id="characterCanvas">
+                <div class="loading" id="loading">Loading characters...</div>
+                <!-- Layers will be dynamically added here -->
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-label">Boy Skin</div>
+                <div class="skin-selector" id="boySkinSelector">
+                    <!-- Boy skin colors will be added dynamically -->
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div class="control-label">Girl Skin</div>
+                <div class="skin-selector" id="girlSkinSelector">
+                    <!-- Girl skin colors will be added dynamically -->
+                </div>
+            </div>
+            
+            <button class="random-btn" onclick="randomizeAll()">🎲 Randomize All</button>
+        </div>
+    </div>
+
+    <script>
+        let assetsData = null;
+        let currentBoyConfig = {};
+        let currentGirlConfig = {};
+        let faceExpressionInterval = null;
+        let loadedImages = new Set();
+        
+        const boySkinColors = ['#fdbcb4', '#f4a688', '#e79881', '#d08871', '#b5674d'];
+        const girlSkinColors = ['#fde2e4', '#f7cad0', '#faa2c1', '#e7789d', '#cd5c85', '#a2386b'];
+        
+        // Layer order for proper rendering
+        const layerOrder = [
+            'background',
+            'boy_backhair',
+            'girl_backhair', 
+            'boy_skin',
+            'girl_skin',
+            'boy_bottom',
+            'girl_bottom',
+            'boy_shoes', 
+            'girl_shoes',
+            'boy_top',
+            'girl_top',
+            'boy_full',
+            'girl_full',
+            'boy_thing1',
+            'girl_thing1',
+            'boy_eyeball',
+            'girl_eyeball', 
+            'boy_eyebrow',
+            'girl_eyebrow',
+            'boy_mouth',
+            'girl_mouth',
+            'boy_fronthair',
+            'girl_fronthair'
+        ];
+        
+        async function loadAssetsData() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/xchirxg/db/main/character-assets.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load assets');
+                }
+                assetsData = await response.json();
+                console.log('Assets loaded:', assetsData);
+                initializeApp();
+            } catch (error) {
+                console.error('Error loading assets:', error);
+                document.getElementById('loading').textContent = 'Error loading assets. Please refresh.';
+            }
+        }
+        
+        function initializeApp() {
+            createSkinSelectors();
+            setupLayers();
+            loadDefaultCharacters();
+            startFaceExpressionCycle();
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        function createSkinSelectors() {
+            const boySkinSelector = document.getElementById('boySkinSelector');
+            const girlSkinSelector = document.getElementById('girlSkinSelector');
+            
+            // Create boy skin selector
+            assetsData.characters.boy.skin.items.forEach((skin, index) => {
+                const button = document.createElement('div');
+                button.className = 'skin-button';
+                button.style.backgroundColor = boySkinColors[index] || boySkinColors[0];
+                button.onclick = () => selectBoySkin(index + 1);
+                if (index === 0) button.classList.add('active');
+                boySkinSelector.appendChild(button);
+            });
+            
+            // Create girl skin selector  
+            assetsData.characters.girl.skin.items.forEach((skin, index) => {
+                const button = document.createElement('div');
+                button.className = 'skin-button';
+                button.style.backgroundColor = girlSkinColors[index] || girlSkinColors[0];
+                button.onclick = () => selectGirlSkin(index + 1);
+                if (index === 0) button.classList.add('active');
+                girlSkinSelector.appendChild(button);
+            });
+        }
+        
+        function setupLayers() {
+            const canvas = document.getElementById('characterCanvas');
+            
+            layerOrder.forEach(layerName => {
+                const layer = document.createElement('div');
+                layer.className = 'character-layer';
+                layer.id = layerName;
+                canvas.appendChild(layer);
+            });
+        }
+        
+        function loadDefaultCharacters() {
+            // Set default configurations - start with individual pieces
+            currentBoyConfig = {
+                skin: 1,
+                backhair: 1,
+                fronthair: 1,
+                top: 1,
+                bottom: 1,
+                shoes: 1,
+                eyeball: 1,
+                eyebrow: 1,
+                mouth: 1,
+                useFull: false, // Track if using full outfit
+                full: null
+            };
+            
+            currentGirlConfig = {
+                skin: 1,
+                backhair: 1,
+                fronthair: 1,
+                top: 1,
+                bottom: 1,
+                shoes: 1,
+                eyeball: 1,
+                eyebrow: 1,
+                mouth: 1,
+                useFull: false, // Track if using full outfit
+                full: null
+            };
+            
+            // Load background
+            loadLayer('background', assetsData.backgrounds.items[0].url);
+            
+            // Load characters
+            loadBoyCharacter();
+            loadGirlCharacter();
+        }
+        
+        function loadBoyCharacter() {
+            const boy = assetsData.characters.boy;
+            
+            // Always load skin, hair, and face
+            loadLayer('boy_skin', boy.skin.items[currentBoyConfig.skin - 1].url);
+            loadLayer('boy_backhair', boy.backhair.items[currentBoyConfig.backhair - 1].url);
+            loadLayer('boy_fronthair', boy.fronthair.items[currentBoyConfig.fronthair - 1].url);
+            loadLayer('boy_eyeball', boy.face.eyeball.items[currentBoyConfig.eyeball - 1].url);
+            loadLayer('boy_eyebrow', boy.face.eyebrow.items[currentBoyConfig.eyebrow - 1].url);
+            loadLayer('boy_mouth', boy.face.mouth.items[currentBoyConfig.mouth - 1].url);
+            
+            // Load accessories if available
+            if (currentBoyConfig.thing1 && boy.thing1 && boy.thing1.items[currentBoyConfig.thing1 - 1]) {
+                loadLayer('boy_thing1', boy.thing1.items[currentBoyConfig.thing1 - 1].url);
+            } else {
+                // Delay hiding accessories to avoid flicker
+                setTimeout(() => hideLayer('boy_thing1'), 100);
+            }
+            
+            // Choose between full outfit OR individual pieces
+            if (currentBoyConfig.useFull && currentBoyConfig.full && boy.full.items[currentBoyConfig.full - 1]) {
+                // Load full outfit first, then hide individual pieces after it loads
+                const fullImg = new Image();
+                fullImg.onload = () => {
+                    loadLayer('boy_full', boy.full.items[currentBoyConfig.full - 1].url);
+                    // Hide individual pieces after full outfit is loaded
+                    setTimeout(() => {
+                        hideLayer('boy_top');
+                        hideLayer('boy_bottom');
+                        hideLayer('boy_shoes');
+                    }, 50);
+                };
+                fullImg.src = boy.full.items[currentBoyConfig.full - 1].url;
+            } else {
+                // Load individual pieces first, then hide full outfit after they load
+                let loadedCount = 0;
+                const totalPieces = 3;
+                
+                const checkAllLoaded = () => {
+                    loadedCount++;
+                    if (loadedCount >= totalPieces) {
+                        setTimeout(() => hideLayer('boy_full'), 50);
+                    }
+                };
+                
+                // Load individual pieces with callback tracking
+                const topImg = new Image();
+                topImg.onload = () => {
+                    loadLayer('boy_top', boy.top.items[currentBoyConfig.top - 1].url);
+                    checkAllLoaded();
+                };
+                topImg.src = boy.top.items[currentBoyConfig.top - 1].url;
+                
+                const bottomImg = new Image();
+                bottomImg.onload = () => {
+                    loadLayer('boy_bottom', boy.bottom.items[currentBoyConfig.bottom - 1].url);
+                    checkAllLoaded();
+                };
+                bottomImg.src = boy.bottom.items[currentBoyConfig.bottom - 1].url;
+                
+                const shoesImg = new Image();
+                shoesImg.onload = () => {
+                    loadLayer('boy_shoes', boy.shoes.items[currentBoyConfig.shoes - 1].url);
+                    checkAllLoaded();
+                };
+                shoesImg.src = boy.shoes.items[currentBoyConfig.shoes - 1].url;
+            }
+        }
+        
+        function loadGirlCharacter() {
+            const girl = assetsData.characters.girl;
+            
+            // Always load skin, hair, and face
+            loadLayer('girl_skin', girl.skin.items[currentGirlConfig.skin - 1].url);
+            loadLayer('girl_backhair', girl.backhair.items[currentGirlConfig.backhair - 1].url);
+            loadLayer('girl_fronthair', girl.fronthair.items[currentGirlConfig.fronthair - 1].url);
+            loadLayer('girl_eyeball', girl.face.eyeball.items[currentGirlConfig.eyeball - 1].url);
+            loadLayer('girl_eyebrow', girl.face.eyebrow.items[currentGirlConfig.eyebrow - 1].url);
+            loadLayer('girl_mouth', girl.face.mouth.items[currentGirlConfig.mouth - 1].url);
+            
+            // Load accessories if available
+            if (currentGirlConfig.thing1 && girl.thing1 && girl.thing1.items[currentGirlConfig.thing1 - 1]) {
+                loadLayer('girl_thing1', girl.thing1.items[currentGirlConfig.thing1 - 1].url);
+            } else {
+                // Delay hiding accessories to avoid flicker
+                setTimeout(() => hideLayer('girl_thing1'), 100);
+            }
+            
+            // Choose between full outfit OR individual pieces
+            if (currentGirlConfig.useFull && currentGirlConfig.full && girl.full.items[currentGirlConfig.full - 1]) {
+                // Load full outfit first, then hide individual pieces after it loads
+                const fullImg = new Image();
+                fullImg.onload = () => {
+                    loadLayer('girl_full', girl.full.items[currentGirlConfig.full - 1].url);
+                    // Hide individual pieces after full outfit is loaded
+                    setTimeout(() => {
+                        hideLayer('girl_top');
+                        hideLayer('girl_bottom');
+                        hideLayer('girl_shoes');
+                    }, 50);
+                };
+                fullImg.src = girl.full.items[currentGirlConfig.full - 1].url;
+            } else {
+                // Load individual pieces first, then hide full outfit after they load
+                let loadedCount = 0;
+                const totalPieces = 3;
+                
+                const checkAllLoaded = () => {
+                    loadedCount++;
+                    if (loadedCount >= totalPieces) {
+                        setTimeout(() => hideLayer('girl_full'), 50);
+                    }
+                };
+                
+                // Load individual pieces with callback tracking
+                const topImg = new Image();
+                topImg.onload = () => {
+                    loadLayer('girl_top', girl.top.items[currentGirlConfig.top - 1].url);
+                    checkAllLoaded();
+                };
+                topImg.src = girl.top.items[currentGirlConfig.top - 1].url;
+                
+                const bottomImg = new Image();
+                bottomImg.onload = () => {
+                    loadLayer('girl_bottom', girl.bottom.items[currentGirlConfig.bottom - 1].url);
+                    checkAllLoaded();
+                };
+                bottomImg.src = girl.bottom.items[currentGirlConfig.bottom - 1].url;
+                
+                const shoesImg = new Image();
+                shoesImg.onload = () => {
+                    loadLayer('girl_shoes', girl.shoes.items[currentGirlConfig.shoes - 1].url);
+                    checkAllLoaded();
+                };
+                shoesImg.src = girl.shoes.items[currentGirlConfig.shoes - 1].url;
+            }
+        }
+        
+        function loadLayer(layerId, imageUrl) {
+            const layer = document.getElementById(layerId);
+            if (!layer || !imageUrl) return;
+            
+            // Don't change anything if the same image is already loaded
+            if (layer.style.backgroundImage.includes(imageUrl)) {
+                return;
+            }
+            
+            const img = new Image();
+            img.onload = () => {
+                // Only update the layer after the new image is fully loaded
+                layer.style.backgroundImage = `url(${imageUrl})`;
+                layer.classList.add('loaded');
+                loadedImages.add(imageUrl);
+            };
+            img.onerror = () => {
+                console.error('Failed to load image:', imageUrl);
+            };
+            img.src = imageUrl;
+        }
+        
+        function hideLayer(layerId) {
+            const layer = document.getElementById(layerId);
+            if (layer) {
+                layer.style.backgroundImage = '';
+                layer.classList.remove('loaded');
+            }
+        }
+        
+        function selectBoySkin(skinId) {
+            currentBoyConfig.skin = skinId;
+            loadLayer('boy_skin', assetsData.characters.boy.skin.items[skinId - 1].url);
+            
+            // Update active skin selector
+            const buttons = document.querySelectorAll('#boySkinSelector .skin-button');
+            buttons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === skinId - 1);
+            });
+        }
+        
+        function selectGirlSkin(skinId) {
+            currentGirlConfig.skin = skinId;
+            loadLayer('girl_skin', assetsData.characters.girl.skin.items[skinId - 1].url);
+            
+            // Update active skin selector
+            const buttons = document.querySelectorAll('#girlSkinSelector .skin-button');
+            buttons.forEach((btn, index) => {
+                btn.classList.toggle('active', index === skinId - 1);
+            });
+        }
+        
+        function randomizeAll() {
+            // Random background
+            const randomBg = assetsData.backgrounds.items[Math.floor(Math.random() * assetsData.backgrounds.count)];
+            loadLayer('background', randomBg.url);
+            
+            // Random boy configuration
+            const boy = assetsData.characters.boy;
+            const useFullForBoy = Math.random() > 0.5; // 50% chance to use full outfit
+            
+            currentBoyConfig = {
+                skin: currentBoyConfig.skin, // Keep current skin
+                backhair: Math.floor(Math.random() * boy.backhair.count) + 1,
+                fronthair: Math.floor(Math.random() * boy.fronthair.count) + 1,
+                eyeball: Math.floor(Math.random() * boy.face.eyeball.count) + 1,
+                eyebrow: Math.floor(Math.random() * boy.face.eyebrow.count) + 1,
+                mouth: Math.floor(Math.random() * boy.face.mouth.count) + 1,
+                useFull: useFullForBoy
+            };
+            
+            // Add accessories randomly (if available)
+            if (boy.thing1 && boy.thing1.count > 0) {
+                if (Math.random() > 0.7) { // 30% chance to add accessory
+                    currentBoyConfig.thing1 = Math.floor(Math.random() * boy.thing1.count) + 1;
+                }
+            }
+            
+            if (useFullForBoy) {
+                currentBoyConfig.full = Math.floor(Math.random() * boy.full.count) + 1;
+            } else {
+                currentBoyConfig.top = Math.floor(Math.random() * boy.top.count) + 1;
+                currentBoyConfig.bottom = Math.floor(Math.random() * boy.bottom.count) + 1;
+                currentBoyConfig.shoes = Math.floor(Math.random() * boy.shoes.count) + 1;
+            }
+            
+            // Random girl configuration
+            const girl = assetsData.characters.girl;
+            const useFullForGirl = Math.random() > 0.5; // 50% chance to use full outfit
+            
+            currentGirlConfig = {
+                skin: currentGirlConfig.skin, // Keep current skin
+                backhair: Math.floor(Math.random() * girl.backhair.count) + 1,
+                fronthair: Math.floor(Math.random() * girl.fronthair.count) + 1,
+                eyeball: Math.floor(Math.random() * girl.face.eyeball.count) + 1,
+                eyebrow: Math.floor(Math.random() * girl.face.eyebrow.count) + 1,
+                mouth: Math.floor(Math.random() * girl.face.mouth.count) + 1,
+                useFull: useFullForGirl
+            };
+            
+            // Add accessories randomly (if available)
+            if (girl.thing1 && girl.thing1.count > 0) {
+                if (Math.random() > 0.7) { // 30% chance to add accessory
+                    currentGirlConfig.thing1 = Math.floor(Math.random() * girl.thing1.count) + 1;
+                }
+            }
+            
+            if (useFullForGirl) {
+                currentGirlConfig.full = Math.floor(Math.random() * girl.full.count) + 1;
+            } else {
+                currentGirlConfig.top = Math.floor(Math.random() * girl.top.count) + 1;
+                currentGirlConfig.bottom = Math.floor(Math.random() * girl.bottom.count) + 1;
+                currentGirlConfig.shoes = Math.floor(Math.random() * girl.shoes.count) + 1;
+            }
+            
+            // Load new configurations
+            loadBoyCharacter();
+            loadGirlCharacter();
+        }
+        
+        function startFaceExpressionCycle() {
+            if (faceExpressionInterval) {
+                clearInterval(faceExpressionInterval);
+            }
+            
+            faceExpressionInterval = setInterval(() => {
+                if (!assetsData) return;
+                
+                // Random boy face expressions
+                const boy = assetsData.characters.boy;
+                const randomBoyEyeball = Math.floor(Math.random() * boy.face.eyeball.count) + 1;
+                const randomBoyEyebrow = Math.floor(Math.random() * boy.face.eyebrow.count) + 1;
+                const randomBoyMouth = Math.floor(Math.random() * boy.face.mouth.count) + 1;
+                
+                loadLayer('boy_eyeball', boy.face.eyeball.items[randomBoyEyeball - 1].url);
+                loadLayer('boy_eyebrow', boy.face.eyebrow.items[randomBoyEyebrow - 1].url);
+                loadLayer('boy_mouth', boy.face.mouth.items[randomBoyMouth - 1].url);
+                
+                // Random girl face expressions
+                const girl = assetsData.characters.girl;
+                const randomGirlEyeball = Math.floor(Math.random() * girl.face.eyeball.count) + 1;
+                const randomGirlEyebrow = Math.floor(Math.random() * girl.face.eyebrow.count) + 1;
+                const randomGirlMouth = Math.floor(Math.random() * girl.face.mouth.count) + 1;
+                
+                loadLayer('girl_eyeball', girl.face.eyeball.items[randomGirlEyeball - 1].url);
+                loadLayer('girl_eyebrow', girl.face.eyebrow.items[randomGirlEyebrow - 1].url);
+                loadLayer('girl_mouth', girl.face.mouth.items[randomGirlMouth - 1].url);
+                
+                // Update current configs for consistency
+                currentBoyConfig.eyeball = randomBoyEyeball;
+                currentBoyConfig.eyebrow = randomBoyEyebrow;
+                currentBoyConfig.mouth = randomBoyMouth;
+                
+                currentGirlConfig.eyeball = randomGirlEyeball;
+                currentGirlConfig.eyebrow = randomGirlEyebrow;
+                currentGirlConfig.mouth = randomGirlMouth;
+                
+            }, 5000); // Change every 5 seconds
+        }
+        
+        // Initialize the app when page loads
+        document.addEventListener('DOMContentLoaded', loadAssetsData);
+        
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (faceExpressionInterval) {
+                    clearInterval(faceExpressionInterval);
+                }
+            } else {
+                startFaceExpressionCycle();
+            }
+        });
+    </script>
+</body>
+</html>

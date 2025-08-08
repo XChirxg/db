@@ -1,515 +1,415 @@
 {
   "version": "2.0.0",
+  "lastUpdated": "2025-08-08",
   "repository": {
     "username": "xchirxg",
-    "repo": "db",
+    "name": "db",
     "baseUrl": "https://raw.githubusercontent.com/xchirxg/db/main"
   },
-    "cropConfigurations": {
-    "boy": {
-      "backhair": { "x": 255, "y": 520, "width": 352, "height": 358 },
-      "bottom": { "x": 277, "y": 1056, "width": 292, "height": 466 },
-      "fronthair": { "x": 275, "y": 570, "width": 332, "height": 294 },
-      "full": { "x": 251, "y": 818, "width": 326, "height": 706 },
-      "shoes": { "x": 309, "y": 1309, "width": 244, "height": 216 },
-      "skin": { "x": 373, "y": 659, "width": 114, "height": 110 },
-      "top": { "x": 281, "y": 842, "width": 292, "height": 442 }
+  "imageSpecs": {
+    "originalResolution": {
+      "width": 1080,
+      "height": 1920
     },
-    "girl": {
-      "backhair": { "x": 467, "y": 594, "width": 454, "height": 674 },
-      "bottom": { "x": 493, "y": 1068, "width": 374, "height": 448 },
-      "fronthair": { "x": 467, "y": 594, "width": 454, "height": 674 },
-      "full": { "x": 499, "y": 931, "width": 388, "height": 592 },
-      "shoes": { "x": 493, "y": 1309, "width": 374, "height": 216 },
-      "skin": { "x": 578, "y": 741, "width": 114, "height": 110 },
-      "top": { "x": 513, "y": 925, "width": 338, "height": 456 }
-    }
-  },
-  "displaySettings": {
     "thumbnailSize": {
       "width": 120,
       "height": 120
     },
-    "categories": {
-      "withCropping": ["backhair", "bottom", "fronthair", "full", "shoes", "skin", "top"],
-      "originalSize": ["thing1", "background"],
-      "excluded": ["face", "eyeball", "eyebrow", "mouth"]
-    }
+    "format": "PNG",
+    "transparency": true,
+    "orientation": "portrait"
   },
-  "backgrounds": {
-    "count": 4,
-    "path": "background",
-    "items": [
-      {
-        "id": 1,
-        "name": "Background 1",
-        "url": "https://raw.githubusercontent.com/xchirxg/db/main/background/1.png"
-      },
-      {
-        "id": 2,
-        "name": "Background 2",
-        "url": "https://raw.githubusercontent.com/xchirxg/db/main/background/2.png"
-      },
-      {
-        "id": 3,
-        "name": "Background 3",
-        "url": "https://raw.githubusercontent.com/xchirxg/db/main/background/3.png"
-      },
-      {
-        "id": 4,
-        "name": "Background 4",
-        "url": "https://raw.githubusercontent.com/xchirxg/db/main/background/4.png"
-      }
-    ]
+  "layerOrder": [
+    "background",
+    "backhair",
+    "skin", 
+    "bottom",
+    "shoes",
+    "top",
+    "full",
+    "thing1",
+    "eyeball",
+    "eyebrow",
+    "mouth",
+    "fronthair"
+  ],
+  "outfitRules": {
+    "individualPieces": ["skin", "top", "bottom", "shoes"],
+    "completeOutfit": ["skin", "full"],
+    "never_mix": "Do not use 'full' with individual 'top', 'bottom', or 'shoes'"
   },
-  "characters": {
+  "cropConfigurations": {
     "boy": {
       "backhair": {
-        "count": 10,
-        "path": "boy/backhair",
-        "items": [
-          {"id": 1, "name": "Boy Back Hair 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/1.png"},
-          {"id": 2, "name": "Boy Back Hair 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/2.png"},
-          {"id": 3, "name": "Boy Back Hair 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/3.png"},
-          {"id": 4, "name": "Boy Back Hair 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/4.png"},
-          {"id": 5, "name": "Boy Back Hair 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/5.png"},
-          {"id": 6, "name": "Boy Back Hair 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/6.png"},
-          {"id": 7, "name": "Boy Back Hair 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/7.png"},
-          {"id": 8, "name": "Boy Back Hair 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/8.png"},
-          {"id": 9, "name": "Boy Back Hair 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/9.png"},
-          {"id": 10, "name": "Boy Back Hair 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/10.png"}
-        ]
+        "x": 255,
+        "y": 520,
+        "width": 352,
+        "height": 358,
+        "description": "Hair behind the character"
       },
       "bottom": {
-        "count": 18,
-        "path": "boy/bottom",
-        "items": [
-          {"id": 1, "name": "Boy Bottom 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/1.png"},
-          {"id": 2, "name": "Boy Bottom 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/2.png"},
-          {"id": 3, "name": "Boy Bottom 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/3.png"},
-          {"id": 4, "name": "Boy Bottom 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/4.png"},
-          {"id": 5, "name": "Boy Bottom 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/5.png"},
-          {"id": 6, "name": "Boy Bottom 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/6.png"},
-          {"id": 7, "name": "Boy Bottom 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/7.png"},
-          {"id": 8, "name": "Boy Bottom 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/8.png"},
-          {"id": 9, "name": "Boy Bottom 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/9.png"},
-          {"id": 10, "name": "Boy Bottom 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/10.png"},
-          {"id": 11, "name": "Boy Bottom 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/11.png"},
-          {"id": 12, "name": "Boy Bottom 12", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/12.png"},
-          {"id": 13, "name": "Boy Bottom 13", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/13.png"},
-          {"id": 14, "name": "Boy Bottom 14", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/14.png"},
-          {"id": 15, "name": "Boy Bottom 15", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/15.png"},
-          {"id": 16, "name": "Boy Bottom 16", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/16.png"},
-          {"id": 17, "name": "Boy Bottom 17", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/17.png"},
-          {"id": 18, "name": "Boy Bottom 18", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/bottom/18.png"}
-        ]
-      },
-      "face": {
-        "eyeball": {
-          "count": 11,
-          "path": "boy/face/eyeball",
-          "items": [
-            {"id": 1, "name": "Boy Eyeball 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/1.png"},
-            {"id": 2, "name": "Boy Eyeball 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/2.png"},
-            {"id": 3, "name": "Boy Eyeball 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/3.png"},
-            {"id": 4, "name": "Boy Eyeball 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/4.png"},
-            {"id": 5, "name": "Boy Eyeball 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/5.png"},
-            {"id": 6, "name": "Boy Eyeball 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/6.png"},
-            {"id": 7, "name": "Boy Eyeball 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/7.png"},
-            {"id": 8, "name": "Boy Eyeball 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/8.png"},
-            {"id": 9, "name": "Boy Eyeball 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/9.png"},
-            {"id": 10, "name": "Boy Eyeball 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/10.png"},
-            {"id": 11, "name": "Boy Eyeball 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyeball/11.png"}
-          ]
-        },
-        "eyebrow": {
-          "count": 5,
-          "path": "boy/face/eyebrow",
-          "items": [
-            {"id": 1, "name": "Boy Eyebrow 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyebrow/1.png"},
-            {"id": 2, "name": "Boy Eyebrow 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyebrow/2.png"},
-            {"id": 3, "name": "Boy Eyebrow 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyebrow/3.png"},
-            {"id": 4, "name": "Boy Eyebrow 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyebrow/4.png"},
-            {"id": 5, "name": "Boy Eyebrow 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/eyebrow/5.png"}
-          ]
-        },
-        "mouth": {
-          "count": 4,
-          "path": "boy/face/mouth",
-          "items": [
-            {"id": 1, "name": "Boy Mouth 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/mouth/1.png"},
-            {"id": 2, "name": "Boy Mouth 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/mouth/2.png"},
-            {"id": 3, "name": "Boy Mouth 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/mouth/3.png"},
-            {"id": 4, "name": "Boy Mouth 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/face/mouth/4.png"}
-          ]
-        }
+        "x": 277,
+        "y": 1056,
+        "width": 292,
+        "height": 466,
+        "description": "Lower body clothing"
       },
       "fronthair": {
-        "count": 10,
-        "path": "boy/fronthair",
-        "items": [
-          {"id": 1, "name": "Boy Front Hair 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/1.png"},
-          {"id": 2, "name": "Boy Front Hair 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/2.png"},
-          {"id": 3, "name": "Boy Front Hair 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/3.png"},
-          {"id": 4, "name": "Boy Front Hair 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/4.png"},
-          {"id": 5, "name": "Boy Front Hair 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/5.png"},
-          {"id": 6, "name": "Boy Front Hair 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/6.png"},
-          {"id": 7, "name": "Boy Front Hair 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/7.png"},
-          {"id": 8, "name": "Boy Front Hair 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/8.png"},
-          {"id": 9, "name": "Boy Front Hair 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/9.png"},
-          {"id": 10, "name": "Boy Front Hair 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/fronthair/10.png"}
-        ]
+        "x": 275,
+        "y": 570,
+        "width": 332,
+        "height": 294,
+        "description": "Hair in front of character"
       },
       "full": {
-        "count": 16,
-        "path": "boy/full",
-        "items": [
-          {"id": 1, "name": "Boy Full 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/1.png"},
-          {"id": 2, "name": "Boy Full 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/2.png"},
-          {"id": 3, "name": "Boy Full 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/3.png"},
-          {"id": 4, "name": "Boy Full 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/4.png"},
-          {"id": 5, "name": "Boy Full 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/5.png"},
-          {"id": 6, "name": "Boy Full 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/6.png"},
-          {"id": 7, "name": "Boy Full 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/7.png"},
-          {"id": 8, "name": "Boy Full 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/8.png"},
-          {"id": 9, "name": "Boy Full 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/9.png"},
-          {"id": 10, "name": "Boy Full 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/10.png"},
-          {"id": 11, "name": "Boy Full 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/11.png"},
-          {"id": 12, "name": "Boy Full 12", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/12.png"},
-          {"id": 13, "name": "Boy Full 13", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/13.png"},
-          {"id": 14, "name": "Boy Full 14", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/14.png"},
-          {"id": 15, "name": "Boy Full 15", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/15.png"},
-          {"id": 16, "name": "Boy Full 16", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/full/16.png"}
-        ]
+        "x": 251,
+        "y": 818,
+        "width": 326,
+        "height": 706,
+        "description": "Complete outfit view"
       },
       "shoes": {
-        "count": 4,
-        "path": "boy/shoes",
-        "items": [
-          {"id": 1, "name": "Boy Shoes 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/shoes/1.png"},
-          {"id": 2, "name": "Boy Shoes 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/shoes/2.png"},
-          {"id": 3, "name": "Boy Shoes 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/shoes/3.png"},
-          {"id": 4, "name": "Boy Shoes 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/shoes/4.png"}
-        ]
+        "x": 309,
+        "y": 1309,
+        "width": 244,
+        "height": 216,
+        "description": "Footwear area"
       },
       "skin": {
-        "count": 5,
-        "path": "boy/skin",
-        "items": [
-          {"id": 1, "name": "Boy Skin 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/1.png"},
-          {"id": 2, "name": "Boy Skin 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/2.png"},
-          {"id": 3, "name": "Boy Skin 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/3.png"},
-          {"id": 4, "name": "Boy Skin 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/4.png"},
-          {"id": 5, "name": "Boy Skin 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/skin/5.png"}
-        ]
-      },
-      "thing1": {
-        "count": 3,
-        "path": "boy/thing1",
-        "items": [
-          {"id": 1, "name": "Boy Thing1 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/thing1/1.png"},
-          {"id": 2, "name": "Boy Thing1 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/thing1/2.png"},
-          {"id": 3, "name": "Boy Thing1 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/thing1/3.png"}
-        ]
+        "x": 373,
+        "y": 659,
+        "width": 114,
+        "height": 110,
+        "description": "Face and skin tone"
       },
       "top": {
-        "count": 23,
-        "path": "boy/top",
-        "items": [
-          {"id": 1, "name": "Boy Top 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/1.png"},
-          {"id": 2, "name": "Boy Top 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/2.png"},
-          {"id": 3, "name": "Boy Top 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/3.png"},
-          {"id": 4, "name": "Boy Top 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/4.png"},
-          {"id": 5, "name": "Boy Top 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/5.png"},
-          {"id": 6, "name": "Boy Top 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/6.png"},
-          {"id": 7, "name": "Boy Top 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/7.png"},
-          {"id": 8, "name": "Boy Top 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/8.png"},
-          {"id": 9, "name": "Boy Top 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/9.png"},
-          {"id": 10, "name": "Boy Top 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/10.png"},
-          {"id": 11, "name": "Boy Top 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/11.png"},
-          {"id": 12, "name": "Boy Top 12", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/12.png"},
-          {"id": 13, "name": "Boy Top 13", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/13.png"},
-          {"id": 14, "name": "Boy Top 14", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/14.png"},
-          {"id": 15, "name": "Boy Top 15", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/15.png"},
-          {"id": 16, "name": "Boy Top 16", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/16.png"},
-          {"id": 17, "name": "Boy Top 17", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/17.png"},
-          {"id": 18, "name": "Boy Top 18", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/18.png"},
-          {"id": 19, "name": "Boy Top 19", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/19.png"},
-          {"id": 20, "name": "Boy Top 20", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/20.png"},
-          {"id": 21, "name": "Boy Top 21", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/21.png"},
-          {"id": 22, "name": "Boy Top 22", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/22.png"},
-          {"id": 23, "name": "Boy Top 23", "url": "https://raw.githubusercontent.com/xchirxg/db/main/boy/top/23.png"}
-        ]
+        "x": 281,
+        "y": 842,
+        "width": 292,
+        "height": 442,
+        "description": "Upper body clothing"
       }
     },
     "girl": {
       "backhair": {
-        "count": 10,
-        "path": "girl/backhair",
-        "items": [
-          {"id": 1, "name": "Girl Back Hair 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/1.png"},
-          {"id": 2, "name": "Girl Back Hair 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/2.png"},
-          {"id": 3, "name": "Girl Back Hair 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/3.png"},
-          {"id": 4, "name": "Girl Back Hair 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/4.png"},
-          {"id": 5, "name": "Girl Back Hair 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/5.png"},
-          {"id": 6, "name": "Girl Back Hair 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/6.png"},
-          {"id": 7, "name": "Girl Back Hair 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/7.png"},
-          {"id": 8, "name": "Girl Back Hair 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/8.png"},
-          {"id": 9, "name": "Girl Back Hair 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/9.png"},
-          {"id": 10, "name": "Girl Back Hair 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/backhair/10.png"}
-        ]
+        "x": 467,
+        "y": 594,
+        "width": 454,
+        "height": 674,
+        "description": "Hair behind the character"
       },
       "bottom": {
-        "count": 18,
-        "path": "girl/bottom",
-        "items": [
-          {"id": 1, "name": "Girl Bottom 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/1.png"},
-          {"id": 2, "name": "Girl Bottom 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/2.png"},
-          {"id": 3, "name": "Girl Bottom 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/3.png"},
-          {"id": 4, "name": "Girl Bottom 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/4.png"},
-          {"id": 5, "name": "Girl Bottom 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/5.png"},
-          {"id": 6, "name": "Girl Bottom 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/6.png"},
-          {"id": 7, "name": "Girl Bottom 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/7.png"},
-          {"id": 8, "name": "Girl Bottom 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/8.png"},
-          {"id": 9, "name": "Girl Bottom 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/9.png"},
-          {"id": 10, "name": "Girl Bottom 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/10.png"},
-          {"id": 11, "name": "Girl Bottom 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/11.png"},
-          {"id": 12, "name": "Girl Bottom 12", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/12.png"},
-          {"id": 13, "name": "Girl Bottom 13", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/13.png"},
-          {"id": 14, "name": "Girl Bottom 14", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/14.png"},
-          {"id": 15, "name": "Girl Bottom 15", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/15.png"},
-          {"id": 16, "name": "Girl Bottom 16", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/16.png"},
-          {"id": 17, "name": "Girl Bottom 17", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/17.png"},
-          {"id": 18, "name": "Girl Bottom 18", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/bottom/18.png"}
-        ]
-      },
-      "face": {
-        "eyeball": {
-          "count": 10,
-          "path": "girl/face/eyeball",
-          "items": [
-            {"id": 1, "name": "Girl Eyeball 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/1.png"},
-            {"id": 2, "name": "Girl Eyeball 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/2.png"},
-            {"id": 3, "name": "Girl Eyeball 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/3.png"},
-            {"id": 4, "name": "Girl Eyeball 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/4.png"},
-            {"id": 5, "name": "Girl Eyeball 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/5.png"},
-            {"id": 6, "name": "Girl Eyeball 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/6.png"},
-            {"id": 7, "name": "Girl Eyeball 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/7.png"},
-            {"id": 8, "name": "Girl Eyeball 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/8.png"},
-            {"id": 9, "name": "Girl Eyeball 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/9.png"},
-            {"id": 10, "name": "Girl Eyeball 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyeball/10.png"}
-          ]
-        },
-        "eyebrow": {
-          "count": 5,
-          "path": "girl/face/eyebrow",
-          "items": [
-            {"id": 1, "name": "Girl Eyebrow 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyebrow/1.png"},
-            {"id": 2, "name": "Girl Eyebrow 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyebrow/2.png"},
-            {"id": 3, "name": "Girl Eyebrow 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyebrow/3.png"},
-            {"id": 4, "name": "Girl Eyebrow 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyebrow/4.png"},
-            {"id": 5, "name": "Girl Eyebrow 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/eyebrow/5.png"}
-          ]
-        },
-        "mouth": {
-          "count": 4,
-          "path": "girl/face/mouth",
-          "items": [
-            {"id": 1, "name": "Girl Mouth 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/mouth/1.png"},
-            {"id": 2, "name": "Girl Mouth 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/mouth/2.png"},
-            {"id": 3, "name": "Girl Mouth 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/mouth/3.png"},
-            {"id": 4, "name": "Girl Mouth 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/face/mouth/4.png"}
-          ]
-        }
-      },
-      "fronthair": {
-        "count": 10,
-        "path": "girl/fronthair",
-        "items": [
-          {"id": 1, "name": "Girl Front Hair 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/1.png"},
-          {"id": 2, "name": "Girl Front Hair 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/2.png"},
-          {"id": 3, "name": "Girl Front Hair 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/3.png"},
-          {"id": 4, "name": "Girl Front Hair 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/4.png"},
-          {"id": 5, "name": "Girl Front Hair 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/5.png"},
-          {"id": 6, "name": "Girl Front Hair 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/6.png"},
-          {"id": 7, "name": "Girl Front Hair 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/7.png"},
-          {"id": 8, "name": "Girl Front Hair 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/8.png"},
-          {"id": 9, "name": "Girl Front Hair 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/9.png"},
-          {"id": 10, "name": "Girl Front Hair 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/fronthair/10.png"}
-        ]
+        "x": 493,
+        "y": 1068,
+        "width": 374,
+        "height": 448,
+        "description": "Lower body clothing"
       },
       "full": {
-        "count": 28,
-        "path": "girl/full",
-        "items": [
-          {"id": 1, "name": "Girl Full 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/1.png"},
-          {"id": 2, "name": "Girl Full 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/2.png"},
-          {"id": 3, "name": "Girl Full 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/3.png"},
-          {"id": 4, "name": "Girl Full 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/4.png"},
-          {"id": 5, "name": "Girl Full 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/5.png"},
-          {"id": 6, "name": "Girl Full 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/6.png"},
-          {"id": 7, "name": "Girl Full 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/7.png"},
-          {"id": 8, "name": "Girl Full 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/8.png"},
-          {"id": 9, "name": "Girl Full 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/9.png"},
-          {"id": 10, "name": "Girl Full 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/10.png"},
-          {"id": 11, "name": "Girl Full 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/11.png"},
-          {"id": 12, "name": "Girl Full 12", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/12.png"},
-          {"id": 13, "name": "Girl Full 13", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/13.png"},
-          {"id": 14, "name": "Girl Full 14", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/14.png"},
-          {"id": 15, "name": "Girl Full 15", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/15.png"},
-          {"id": 16, "name": "Girl Full 16", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/16.png"},
-          {"id": 17, "name": "Girl Full 17", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/17.png"},
-          {"id": 18, "name": "Girl Full 18", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/18.png"},
-          {"id": 19, "name": "Girl Full 19", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/19.png"},
-          {"id": 20, "name": "Girl Full 20", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/20.png"},
-          {"id": 21, "name": "Girl Full 21", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/21.png"},
-          {"id": 22, "name": "Girl Full 22", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/22.png"},
-          {"id": 23, "name": "Girl Full 23", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/23.png"},
-          {"id": 24, "name": "Girl Full 24", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/24.png"},
-          {"id": 25, "name": "Girl Full 25", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/25.png"},
-          {"id": 26, "name": "Girl Full 26", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/26.png"},
-          {"id": 27, "name": "Girl Full 27", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/27.png"},
-          {"id": 28, "name": "Girl Full 28", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/full/28.png"}
-        ]
-      },
-      "shoes": {
-        "count": 10,
-        "path": "girl/shoes",
-        "items": [
-          {"id": 1, "name": "Girl Shoes 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/1.png"},
-          {"id": 2, "name": "Girl Shoes 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/2.png"},
-          {"id": 3, "name": "Girl Shoes 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/3.png"},
-          {"id": 4, "name": "Girl Shoes 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/4.png"},
-          {"id": 5, "name": "Girl Shoes 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/5.png"},
-          {"id": 6, "name": "Girl Shoes 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/6.png"},
-          {"id": 7, "name": "Girl Shoes 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/7.png"},
-          {"id": 8, "name": "Girl Shoes 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/8.png"},
-          {"id": 9, "name": "Girl Shoes 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/9.png"},
-          {"id": 10, "name": "Girl Shoes 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/shoes/10.png"}
-        ]
-      },
-      "skin": {
-        "count": 6,
-        "path": "girl/skin",
-        "items": [
-          {"id": 1, "name": "Girl Skin 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/skin/1.png"},
-          {"id": 2, "name": "Girl Skin 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/skin/2.png"},
-          {"id": 3, "name": "Girl Skin 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/skin/3.png"},
-          {"id": 4, "name": "Girl Skin 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/skin/4.png"},
-          {"id": 5, "name": "Girl Skin 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/skin/5.png"},
-          {"id": 6, "name": "Girl Skin 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/skin/6.png"}
-        ]
-      },
-      "thing1": {
-        "count": 5,
-        "path": "girl/thing1",
-        "items": [
-          {"id": 1, "name": "Girl Thing1 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/thing1/1.png"},
-          {"id": 2, "name": "Girl Thing1 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/thing1/2.png"},
-          {"id": 3, "name": "Girl Thing1 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/thing1/3.png"},
-          {"id": 4, "name": "Girl Thing1 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/thing1/4.png"},
-          {"id": 5, "name": "Girl Thing1 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/thing1/5.png"}
-        ]
+        "x": 499,
+        "y": 931,
+        "width": 388,
+        "height": 592,
+        "description": "Complete outfit view"
       },
       "top": {
-        "count": 34,
-        "path": "girl/top",
-        "items": [
-          {"id": 1, "name": "Girl Top 1", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/1.png"},
-          {"id": 2, "name": "Girl Top 2", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/2.png"},
-          {"id": 3, "name": "Girl Top 3", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/3.png"},
-          {"id": 4, "name": "Girl Top 4", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/4.png"},
-          {"id": 5, "name": "Girl Top 5", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/5.png"},
-          {"id": 6, "name": "Girl Top 6", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/6.png"},
-          {"id": 7, "name": "Girl Top 7", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/7.png"},
-          {"id": 8, "name": "Girl Top 8", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/8.png"},
-          {"id": 9, "name": "Girl Top 9", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/9.png"},
-          {"id": 10, "name": "Girl Top 10", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/10.png"},
-          {"id": 11, "name": "Girl Top 11", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/11.png"},
-          {"id": 12, "name": "Girl Top 12", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/12.png"},
-          {"id": 13, "name": "Girl Top 13", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/13.png"},
-          {"id": 14, "name": "Girl Top 14", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/14.png"},
-          {"id": 15, "name": "Girl Top 15", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/15.png"},
-          {"id": 16, "name": "Girl Top 16", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/16.png"},
-          {"id": 17, "name": "Girl Top 17", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/17.png"},
-          {"id": 18, "name": "Girl Top 18", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/18.png"},
-          {"id": 19, "name": "Girl Top 19", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/19.png"},
-          {"id": 20, "name": "Girl Top 20", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/20.png"},
-          {"id": 21, "name": "Girl Top 21", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/21.png"},
-          {"id": 22, "name": "Girl Top 22", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/22.png"},
-          {"id": 23, "name": "Girl Top 23", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/23.png"},
-          {"id": 24, "name": "Girl Top 24", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/24.png"},
-          {"id": 25, "name": "Girl Top 25", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/25.png"},
-          {"id": 26, "name": "Girl Top 26", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/26.png"},
-          {"id": 27, "name": "Girl Top 27", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/27.png"},
-          {"id": 28, "name": "Girl Top 28", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/28.png"},
-          {"id": 29, "name": "Girl Top 29", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/29.png"},
-          {"id": 30, "name": "Girl Top 30", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/30.png"},
-          {"id": 31, "name": "Girl Top 31", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/31.png"},
-          {"id": 32, "name": "Girl Top 32", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/32.png"},
-          {"id": 33, "name": "Girl Top 33", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/33.png"},
-          {"id": 34, "name": "Girl Top 34", "url": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/34.png"}
-        ]
+        "x": 513,
+        "y": 925,
+        "width": 338,
+        "height": 456,
+        "description": "Upper body clothing"
       }
     }
   },
-  "utils": {
-    "getRandomAsset": {
-      "description": "Helper function to get a random asset from any category",
-      "example": "getRandomAsset(data.characters.boy.top.items)"
+  "categories": {
+    "background": {
+      "count": 4,
+      "description": "Environmental scenes for character placement",
+      "layerPosition": 1,
+      "required": false,
+      "path": "background",
+      "filePattern": "{number}.png"
     },
-    "getAssetById": {
-      "description": "Helper function to get an asset by its ID",
-      "example": "getAssetById(data.characters.girl.shoes.items, 5)"
+    "boy": {
+      "backhair": {
+        "count": 10,
+        "description": "Hair behind the boy character",
+        "layerPosition": 2,
+        "required": false,
+        "path": "boy/backhair",
+        "filePattern": "{number}.png",
+        "hasCrop": true
+      },
+      "bottom": {
+        "count": 18,
+        "description": "Lower body clothing for boys",
+        "layerPosition": 4,
+        "required": false,
+        "path": "boy/bottom", 
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["full"]
+      },
+      "eyeball": {
+        "count": 11,
+        "description": "Eye variations for boys",
+        "layerPosition": 9,
+        "required": false,
+        "path": "boy/face/eyeball",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "eyebrow": {
+        "count": 5,
+        "description": "Eyebrow styles for boys",
+        "layerPosition": 10,
+        "required": false,
+        "path": "boy/face/eyebrow",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "fronthair": {
+        "count": 12,
+        "description": "Hair in front of boy character",
+        "layerPosition": 12,
+        "required": false,
+        "path": "boy/fronthair",
+        "filePattern": "{number}.png",
+        "hasCrop": true
+      },
+      "full": {
+        "count": 16,
+        "description": "Complete outfit sets for boys",
+        "layerPosition": 7,
+        "required": false,
+        "path": "boy/full",
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["top", "bottom", "shoes"]
+      },
+      "mouth": {
+        "count": 4,
+        "description": "Mouth expressions for boys",
+        "layerPosition": 11,
+        "required": false,
+        "path": "boy/face/mouth",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "shoes": {
+        "count": 4,
+        "description": "Footwear for boys",
+        "layerPosition": 5,
+        "required": false,
+        "path": "boy/shoes",
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["full"]
+      },
+      "skin": {
+        "count": 5,
+        "description": "Base body and skin tone for boys",
+        "layerPosition": 3,
+        "required": true,
+        "path": "boy/skin",
+        "filePattern": "{number}.png",
+        "hasCrop": true
+      },
+      "thing1": {
+        "count": 3,
+        "description": "Accessories and extras for boys",
+        "layerPosition": 8,
+        "required": false,
+        "path": "boy/thing1",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "top": {
+        "count": 23,
+        "description": "Upper body clothing for boys",
+        "layerPosition": 6,
+        "required": false,
+        "path": "boy/top",
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["full"]
+      }
     },
-    "getAllAssets": {
-      "description": "Helper function to get all assets from a specific character and category",
-      "example": "getAllAssets('girl', 'top')"
+    "girl": {
+      "backhair": {
+        "count": 15,
+        "description": "Hair behind the girl character",
+        "layerPosition": 2,
+        "required": false,
+        "path": "girl/backhair",
+        "filePattern": "{number}.png",
+        "hasCrop": true
+      },
+      "bottom": {
+        "count": 18,
+        "description": "Lower body clothing for girls",
+        "layerPosition": 4,
+        "required": false,
+        "path": "girl/bottom",
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["full"]
+      },
+      "eyeball": {
+        "count": 10,
+        "description": "Eye variations for girls",
+        "layerPosition": 9,
+        "required": false,
+        "path": "girl/face/eyeball",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "eyebrow": {
+        "count": 5,
+        "description": "Eyebrow styles for girls", 
+        "layerPosition": 10,
+        "required": false,
+        "path": "girl/face/eyebrow",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "fronthair": {
+        "count": 18,
+        "description": "Hair in front of girl character",
+        "layerPosition": 12,
+        "required": false,
+        "path": "girl/fronthair",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "full": {
+        "count": 28,
+        "description": "Complete outfit sets for girls",
+        "layerPosition": 7,
+        "required": false,
+        "path": "girl/full",
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["top", "bottom", "shoes"]
+      },
+      "mouth": {
+        "count": 4,
+        "description": "Mouth expressions for girls",
+        "layerPosition": 11,
+        "required": false,
+        "path": "girl/face/mouth",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "shoes": {
+        "count": 10,
+        "description": "Footwear for girls",
+        "layerPosition": 5,
+        "required": false,
+        "path": "girl/shoes",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "skin": {
+        "count": 6,
+        "description": "Base body and skin tone for girls",
+        "layerPosition": 3,
+        "required": true,
+        "path": "girl/skin",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "thing1": {
+        "count": 5,
+        "description": "Accessories and extras for girls",
+        "layerPosition": 8,
+        "required": false,
+        "path": "girl/thing1",
+        "filePattern": "{number}.png",
+        "hasCrop": false
+      },
+      "top": {
+        "count": 34,
+        "description": "Upper body clothing for girls",
+        "layerPosition": 6,
+        "required": false,
+        "path": "girl/top",
+        "filePattern": "{number}.png",
+        "hasCrop": true,
+        "incompatibleWith": ["full"]
+      }
     }
   },
-  "layerOrder": {
-    "description": "Recommended layering order for rendering characters (bottom to top)",
-    "order": [
-      "background",
-      "backhair",
-      "skin",
-      "bottom",
-      "shoes",
-      "top",
-      "full",
-      "thing1",
-      "eyeball",
-      "eyebrow",
-      "mouth",
-      "fronthair"
-    ]
+  "usage": {
+    "characterCreation": {
+      "singleCharacter": {
+        "required": ["skin"],
+        "optional": ["background", "backhair", "fronthair", "eyeball", "eyebrow", "mouth", "thing1"],
+        "clothing": {
+          "option1": ["top", "bottom", "shoes"],
+          "option2": ["full"]
+        }
+      },
+      "coupleCharacters": {
+        "positioning": "Characters are pre-positioned to appear together",
+        "implementation": "Use both boy and girl assets in the same composition",
+        "layering": "Follow the same layer order for each character type"
+      }
+    },
+    "thumbnails": {
+      "purpose": "Use cropped thumbnails for selection interfaces",
+      "size": "120x120px",
+      "method": "Apply crop configurations to original images",
+      "styling": "Use provided CSS classes for consistent appearance"
+    },
+    "fullImages": {
+      "purpose": "Use original images for final character rendering",
+      "size": "1080x1920px",
+      "quality": "Full resolution for detailed display"
+    }
+  },
+  "helpers": {
+    "generateImageUrl": "{baseUrl}/{path}/{number}.png",
+    "generateThumbnailCropFunction": "Use cropConfigurations with HTML5 Canvas",
+    "validateOutfit": "Check incompatibleWith arrays before combining assets",
+    "layerSort": "Sort assets by layerPosition before rendering"
+  },
+  "examples": {
+    "imageUrls": {
+      "boyBackhair1": "https://raw.githubusercontent.com/xchirxg/db/main/boy/backhair/1.png",
+      "girlTop15": "https://raw.githubusercontent.com/xchirxg/db/main/girl/top/15.png",
+      "background2": "https://raw.githubusercontent.com/xchirxg/db/main/background/2.png"
+    },
+    "basicBoyCharacter": {
+      "layers": [
+        "background/1.png",
+        "boy/backhair/1.png", 
+        "boy/skin/1.png",
+        "boy/top/1.png",
+        "boy/bottom/1.png",
+        "boy/shoes/1.png",
+        "boy/fronthair/1.png"
+      ]
+    },
+    "coupleCharacter": {
+      "layers": [
+        "background/1.png",
+        "boy/backhair/1.png",
+        "girl/backhair/1.png",
+        "boy/skin/1.png", 
+        "girl/skin/1.png",
+        "boy/full/1.png",
+        "girl/full/1.png",
+        "boy/fronthair/1.png",
+        "girl/fronthair/1.png"
+      ]
+    }
   },
   "metadata": {
-    "created": "2024",
-    "updated": "2025",
-    "totalAssets": {
-      "backgrounds": 4,
-      "boyAssets": 113,
-      "girlAssets": 128,
-      "total": 245
-    },
-    "categories": [
-      "background",
-      "backhair",
-      "bottom", 
-      "eyeball",
-      "eyebrow",
-      "mouth",
-      "fronthair",
-      "full",
-      "shoes",
-      "skin",
-      "thing1",
-      "top"
-    ],
-    "changelog": {
-      "2.0.0": "Updated file naming from (1).png to 1.png format",
-      "1.0.0": "Initial release with Indian dress character assets"
-    }
+    "totalAssets": "245+",
+    "growthPlan": "Regular additions planned",
+    "themes": ["Indian clothing", "Traditional wear", "Modern casual"],
+    "targetApplications": ["Avatar creation", "Character customization", "Dating apps", "Games"],
+    "accessibility": "Public repository, no authentication required"
   }
 }

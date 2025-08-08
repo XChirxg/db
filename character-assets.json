@@ -5,6 +5,37 @@
     "repo": "db",
     "baseUrl": "https://raw.githubusercontent.com/xchirxg/db/main"
   },
+    "cropConfigurations": {
+    "boy": {
+      "backhair": { "x": 255, "y": 520, "width": 352, "height": 358 },
+      "bottom": { "x": 277, "y": 1056, "width": 292, "height": 466 },
+      "fronthair": { "x": 275, "y": 570, "width": 332, "height": 294 },
+      "full": { "x": 251, "y": 818, "width": 326, "height": 706 },
+      "shoes": { "x": 309, "y": 1309, "width": 244, "height": 216 },
+      "skin": { "x": 373, "y": 659, "width": 114, "height": 110 },
+      "top": { "x": 281, "y": 842, "width": 292, "height": 442 }
+    },
+    "girl": {
+      "backhair": { "x": 467, "y": 594, "width": 454, "height": 674 },
+      "bottom": { "x": 493, "y": 1068, "width": 374, "height": 448 },
+      "fronthair": { "x": 467, "y": 594, "width": 454, "height": 674 },
+      "full": { "x": 499, "y": 931, "width": 388, "height": 592 },
+      "shoes": { "x": 493, "y": 1309, "width": 374, "height": 216 },
+      "skin": { "x": 578, "y": 741, "width": 114, "height": 110 },
+      "top": { "x": 513, "y": 925, "width": 338, "height": 456 }
+    }
+  },
+  "displaySettings": {
+    "thumbnailSize": {
+      "width": 120,
+      "height": 120
+    },
+    "categories": {
+      "withCropping": ["backhair", "bottom", "fronthair", "full", "shoes", "skin", "top"],
+      "originalSize": ["thing1", "background"],
+      "excluded": ["face", "eyeball", "eyebrow", "mouth"]
+    }
+  },
   "backgrounds": {
     "count": 4,
     "path": "background",
